@@ -7,13 +7,6 @@ module "ami" {
   storagetype = "instance-store"
 }
 
-resource "terraform_state" "vpc" {
-    backend = "http"
-    config {
-        address = "https://raw.githubusercontent.com/${var.github_username}/terraform-example-vpc/master/${replace(var.region, \"-\", \"\")}-${var.account}/terraform.tfstate"
-    }
-}
-
 resource "aws_launch_configuration" "consul" {
     image_id = "${module.ami.ami_id}"
     instance_type = "m3.large"
