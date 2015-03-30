@@ -1,0 +1,6 @@
+id_rsa
+id_rsa.pub
+*/variables.tf.json
+*/.terraform
+*/terraform.tfstate.backup
+
