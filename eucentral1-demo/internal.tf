@@ -1,10 +1,12 @@
+module "coreos_amitype" {
+  source = "github.com/tdoran/terraform-amitype"
+  instance_type = "m3.large"
+}
 module "ami" {
-  source = "github.com/bobtfish/terraform-ubuntu-ami"
+  source = "github.com/bobtfish/terraform-coreos-ami"
   region = "${var.region}"
-  distribution = "trusty"
-  architecture = "amd64"
-  virttype = "hvm"
-  storagetype = "instance-store"
+  channel = "beta"
+  virttype = "${module.coreos_amitype.ami_type_prefer_hvm}"
 }
 
 resource "aws_launch_configuration" "consul" {
