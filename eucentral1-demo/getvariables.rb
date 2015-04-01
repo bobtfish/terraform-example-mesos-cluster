@@ -9,7 +9,7 @@ def get(text)
   request = Net::HTTP::Get.new(uri.request_uri)
 
   response = http.request(request)
-  response.body.gsub('$', '\$')
+  response.body.gsub('${', '$${')
 end
 
 kubernates_master_ud = get 'https://raw.githubusercontent.com/GoogleCloudPlatform/kubernetes/master/docs/getting-started-guides/aws/cloud-configs/master.yaml'

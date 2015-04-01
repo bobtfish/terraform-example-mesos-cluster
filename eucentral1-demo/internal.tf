@@ -54,7 +54,7 @@ resource "aws_launch_configuration" "kubernates-master" {
 
 resource "aws_autoscaling_group" "kubernates-master" {
   availability_zones = ["${terraform_state.vpc.output.primary-az}", "${terraform_state.vpc.output.secondary-az}"]
-  name = "consul"
+  name = "kubernates-master"
   max_size = "${var.size}"
   min_size = "${var.size}"
   desired_capacity = "${var.size}"
