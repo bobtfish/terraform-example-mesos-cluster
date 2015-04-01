@@ -1,27 +1,58 @@
 module "coreos_amitype" {
-  source = "github.com/tdoran/terraform-amitype"
+  source = "github.com/bobtfish/terraform-amitype"
   instance_type = "m3.large"
 }
-module "ami" {
+
+module "coreos_ami" {
   source = "github.com/bobtfish/terraform-coreos-ami"
   region = "${var.region}"
   channel = "beta"
   virttype = "${module.coreos_amitype.ami_type_prefer_hvm}"
 }
 
-resource "aws_launch_configuration" "consul" {
-    image_id = "${module.ami.ami_id}"
+resource "aws_launch_configuration" "kubernates-node" {
+    image_id = "${module.coreos_ami.ami_id}"
     instance_type = "m3.large"
     security_groups = ["${terraform_state.vpc.output.security_group_allow_all}"]
     associate_public_ip_address = false
-    user_data = "#cloud-config\napt_sources:\n - source: \"deb https://get.docker.io/ubuntu docker main\"\n   keyid: 36A1D7869245C8950F966E92D8576A8BA88D21E9\n - source: \"deb http://apt.puppetlabs.com trusty main\"\n   keyid: 1054b7a24bd6ec30\napt_upgrade: true\nlocale: en_US.UTF-8\npackages:\n - lxc-docker\n - puppet\n - git\nruncmd:\n - [ /usr/bin/docker, run, --net=host, -d, --name, consul, -p, \"8500:8500\", -p, \"8600:8600/udp\", bobtfish/consul-awsnycast, -dc, ${var.region}-${var.account}, -retry-join, 10.255.255.253  ]\n - [ /usr/bin/docker, run, --rm, -v, \"/usr/local/bin:/target\", jpetazzo/nsenter ]\n"
+    user_data = "${var.kubernates-node-user-data}"
     key_name = "${terraform_state.vpc.output.admin_key_name}"
     lifecycle {
         create_before_destroy = true
     }
 }
 
-resource "aws_autoscaling_group" "consul" {
+resource "aws_autoscaling_group" "kubernates-node" {
+  availability_zones = ["${terraform_state.vpc.output.primary-az}", "${terraform_state.vpc.output.secondary-az}"]
+  name = "kubernates-node"
+  max_size = "${var.size}"
+  min_size = "${var.size}"
+  desired_capacity = "${var.size}"
+  health_check_grace_period = 120
+  health_check_type = "EC2"
+  force_delete = true
+  launch_configuration = "${aws_launch_configuration.kubernates-node.name}"
+  vpc_zone_identifier = [ "${terraform_state.vpc.output.primary-az-ephemeralsubnet}", "${terraform_state.vpc.output.secondary-az-ephemeralsubnet}" ]
+  tag {
+    key = "Name"
+    value = "kubernates-node"
+    propagate_at_launch = true
+  }
+}
+
+resource "aws_launch_configuration" "kubernates-master" {
+    image_id = "${module.coreos_ami.ami_id}"
+    instance_type = "m3.large"
+    security_groups = ["${terraform_state.vpc.output.security_group_allow_all}"]
+    associate_public_ip_address = false
+    user_data = "${var.kubernates-master-user-data}"
+    key_name = "${terraform_state.vpc.output.admin_key_name}"
+    lifecycle {
+        create_before_destroy = true
+    }
+}
+
+resource "aws_autoscaling_group" "kubernates-master" {
   availability_zones = ["${terraform_state.vpc.output.primary-az}", "${terraform_state.vpc.output.secondary-az}"]
   name = "consul"
   max_size = "${var.size}"
@@ -30,11 +61,11 @@ resource "aws_autoscaling_group" "consul" {
   health_check_grace_period = 120
   health_check_type = "EC2"
   force_delete = true
-  launch_configuration = "${aws_launch_configuration.consul.name}"
+  launch_configuration = "${aws_launch_configuration.kubernates-master.name}"
   vpc_zone_identifier = [ "${terraform_state.vpc.output.primary-az-ephemeralsubnet}", "${terraform_state.vpc.output.secondary-az-ephemeralsubnet}" ]
   tag {
     key = "Name"
-    value = "consul"
+    value = "kubernates-master"
     propagate_at_launch = true
   }
 }
