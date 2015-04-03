@@ -6,6 +6,6 @@ resource "terraform_remote_state" "vpc" {
 }
 
 output "nat_public_ip" {
-    value = "${terraform_state.vpc.output.nat_public_ip}"
+    value = "${terraform_remote_state.vpc.output.nat_public_ip}"
 }
 
