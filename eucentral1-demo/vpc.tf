@@ -1,4 +1,4 @@
-resource "terraform_state" "vpc" {
+resource "terraform_remote_state" "vpc" {
     backend = "http"
     config {
         address = "https://raw.githubusercontent.com/${var.github_username}/terraform-example-vpc/master/${replace(var.region, \"-\", \"\")}-${var.account}/terraform.tfstate"
