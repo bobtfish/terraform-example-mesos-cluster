@@ -1,3 +1,4 @@
+/*
 module "kubernates" {
     etcd_discovery_uri = "${var.etcd_discovery_uri}"
     source = "github.com/bobtfish/terraform-aws-coreos-kubernates-cluster"
@@ -14,4 +15,4 @@ module "kubernates" {
     primary-az-subnet = "${terraform_remote_state.vpc.output.primary-az-ephemeralsubnet}"
     secondary-az-subnet = "${terraform_remote_state.vpc.output.secondary-az-ephemeralsubnet}"
 }
-
+*/
