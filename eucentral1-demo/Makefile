@@ -12,6 +12,9 @@ gitupdate:
 sshnat:
 	ssh -A -i ../id_rsa ubuntu@$$(terraform output nat_public_ip)
 
+deploywww:
+	curl -H "Content-Type: application/json" -X POST -d @marathon_www.json $$(terraform output marathon_api)/v2/apps
+
 clean:
 	rm -fr .terraform variables.tf.json
 
