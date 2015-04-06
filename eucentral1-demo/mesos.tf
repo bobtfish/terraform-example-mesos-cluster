@@ -8,7 +8,7 @@ module "mesos" {
     admin_key_name = "${aws_key_pair.admin.key_name}"
     private_subnet_ids = "${module.vpc.primary-az-ephemeralsubnet}"
     public_subnet_ids = "${module.vpc.primary-az-frontsubnet}"
-    domain = "mesos.notanisp.net"
+    domain = "${var.domain}"
     vpc_id = "${module.vpc.id}"
     ssh_private_key_file = "../id_rsa"
     discovery_instance_profile = "temp-admin"
