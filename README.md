@@ -23,6 +23,30 @@ Your subdomain will now appear in the AWS Route53 console - grab the name server
 
 ![Route53 console](route53.png)
 
+Put these in an NS record for your new subdomain (in whereever your main domain is setup).
+
+After DNS catches up, you should be able to resolve:
+
+  * mesos.admin.mesos.notanisp.net
+  * marathon.admin.mesos.notanisp.net
+  * www.mesos.notanisp.net
+
+Hit http://mesos.admin.mesos.notanisp.net with your browser, and you should be able to see the
+Marathon admin screen.
+
+You can now [launch an app](https://mesosphere.com/docs/tutorials/run-services-with-marathon)
+or view the mesos status info by hitting the admin pages.
+
+I've automated the launching of an example application, so if you want to you can just say:
+
+    make deploywww
+
+This will deploy the hello world app (from the mesosphere tutorial linked above) named '/www'
+into marathon, and after a couple of mins, you should be able to access it from www.mesos.notanisp.net
+
+Any additional apps you launch in Marathon with names like /someapp will be automatically bound
+to a vhost on the load balancer.
+
 ## See also
 
   * https://github.com/bobtfish/tf_aws_mesos
