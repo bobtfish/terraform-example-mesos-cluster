@@ -31,7 +31,7 @@ After DNS catches up, you should be able to resolve:
   * marathon.admin.mesos.notanisp.net
   * www.mesos.notanisp.net
 
-Hit http://mesos.admin.mesos.notanisp.net with your browser, and you should be able to see the
+Hit http://marathon.admin.mesos.notanisp.net with your browser, and you should be able to see the
 Marathon admin screen.
 
 You can now [launch an app](https://mesosphere.com/docs/tutorials/run-services-with-marathon)
