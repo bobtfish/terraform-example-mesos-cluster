@@ -5,7 +5,7 @@ module "mesos" {
     masters                     = "3"
     slaves                      = "5"
     region = "${var.region}"
-    admin_key_name = "${module.vpc.admin_key_name}"
+    admin_key_name = "${aws_key_pair.admin.key_name}"
     private_subnet_ids = "${module.vpc.primary-az-ephemeralsubnet}"
     public_subnet_ids = "${module.vpc.primary-az-frontsubnet}"
     domain = "mesos.notanisp.net"
