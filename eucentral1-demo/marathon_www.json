@@ -1,0 +1,41 @@
+{
+    "id": "/www",
+    "cmd": "./Hello-*/bin/hello -Dhttp.port=$PORT0",
+    "cpus": 0.25,
+    "mem": 512.0,
+    "deployments": [
+        {
+            "id": "5cd987cd-85ae-4e70-8df7-f1438367d9cb"
+        }
+    ],
+    "env": {
+    },
+    "executor": "",
+    "healthChecks": [
+        {
+            "protocol": "HTTP",
+            "path": "/",
+            "gracePeriodSeconds": 3,
+            "intervalSeconds": 10,
+            "portIndex": 0,
+            "timeoutSeconds": 10,
+            "maxConsecutiveFailures": 3
+        }
+    ],
+    "instances": 3,
+    "ports": [0],
+    "backoffSeconds": 1,
+    "backoffFactor": 1.15,
+    "maxLaunchDelaySeconds": 3600,
+    "tasksRunning": 3,
+    "tasksStaged": 0,
+    "uris": [
+        "http://downloads.mesosphere.io/tutorials/PlayHello.zip"
+    ],
+    "upgradeStrategy": {
+        "minimumHealthCapacity": 0.5,
+        "maximumOverCapacity": 0.2
+    },
+    "version": "2014-03-01T23:29:30.158Z"
+}
+
