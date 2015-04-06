@@ -1,10 +1,7 @@
 .PHONEY: all
 
-all: ssh_key etcd_discovery_uri
+all: ssh_key
 	true
-
-etcd_discovery_uri:
-	curl http://discovery.etcd.io/new > etcd_discovery_uri
 
 ssh_key: id_rsa id_rsa.pub
 

@@ -1,11 +1,18 @@
-resource "terraform_remote_state" "vpc" {
-    backend = "http"
-    config {
-        address = "https://raw.githubusercontent.com/${var.github_username}/terraform-example-vpc/master/${replace(var.region, \"-\", \"\")}-${var.account}/terraform.tfstate"
-    }
+resource "aws_key_pair" "deployer" {
+  key_name = "deployer-key"
+  public_key = "${var.deploy_ssh_pubkey}"
+}
+
+module "vpc" {
+    source = "github.com/bobtfish/terraform-vpc-nat"
+    account = "${var.account}"
+    region = "${var.region}"
+    networkprefix = "${var.networkprefix}"
+    aws_key_name = "${aws_key_pair.deployer.key_name}"
+    aws_key_location = "../id_rsa"
 }
 
 output "nat_public_ip" {
-    value = "${terraform_remote_state.vpc.output.nat_public_ip}"
+    value = "${module.vpc.output.nat_public_ip}"
 }
 
