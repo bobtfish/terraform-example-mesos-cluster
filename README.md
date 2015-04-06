@@ -19,8 +19,9 @@ automatically get a pubicly accessible URI
     make
     terraform apply
 
-    # Your subdomain will now appear in the AWS Route53 console - grab the name servers:
-    ![Route53 console](route53.png)
+Your subdomain will now appear in the AWS Route53 console - grab the name servers:
+
+![Route53 console](route53.png)
 
 ## See also
 
