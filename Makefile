@@ -15,5 +15,5 @@ admin_iprange.txt:
 	echo $$(curl 'http://api.ipify.org?format=text' 2>/dev/null)/32 > admin_iprange.txt
 
 clean:
-	rm id_rsa id_rsa.pub
+	rm id_rsa id_rsa.pub admin_iprange.txt
 
