@@ -12,6 +12,6 @@ module "mesos" {
     domain = "${var.domain}"
     vpc_id = "${module.vpc.id}"
     ssh_private_key_file = "../id_rsa"
-    discovery_instance_profile = "temp-admin"
+    discovery_instance_profile = "describe-instances"
 }
 
