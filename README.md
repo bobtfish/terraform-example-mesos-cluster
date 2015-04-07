@@ -55,6 +55,7 @@ to a vhost on the load balancer.
 
 ## See also
 
+  * http://bobtfish.github.io/blog/2015/04/06/diy-scalable-paas-with-terraform/
   * https://github.com/bobtfish/tf_aws_mesos
   * http://bobtfish.github.io/blog/2015/04/03/terraform-0-dot-4-0/
   * http://bobtfish.github.io/blog/2015/03/29/terraform-from-the-ground-up/
