@@ -19,10 +19,10 @@ getwww:
 	curl -v http://www.$$(terraform output domain)/
 
 getmesos:
-	curl $$(terraform output mesos_api)
+	curl -v $$(terraform output mesos_api)
 
 getmarathon:
-	curl $$(terraform output marathon_api)
+	curl -v $$(terraform output marathon_api)/v2/apps
 
 clean:
 	rm -fr .terraform variables.tf.json
