@@ -11,7 +11,6 @@ module "mesos" {
     public_subnet_ids = "${module.vpc.primary-az-frontsubnet}"
     domain = "${var.domain}"
     vpc_id = "${module.vpc.id}"
-    ssh_private_key_file = "../id_rsa"
     discovery_instance_profile = "describe-instances"
 }
 
