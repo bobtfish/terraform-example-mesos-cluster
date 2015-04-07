@@ -10,6 +10,7 @@ module "mesos" {
     private_subnet_ids = "${module.vpc.primary-az-ephemeralsubnet}"
     public_subnet_ids = "${module.vpc.primary-az-frontsubnet}"
     domain = "${var.domain}"
+    vpc_iprange = "${module.vpc.cidr_block}"
     vpc_id = "${module.vpc.id}"
     discovery_instance_profile = "describe-instances"
 }
