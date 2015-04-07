@@ -42,7 +42,13 @@ I've automated the launching of an example application, so if you want to you ca
     make deploywww
 
 This will deploy the hello world app (from the mesosphere tutorial linked above) named '/www'
-into marathon, and after a couple of mins, you should be able to access it from www.mesos.notanisp.net
+into marathon, and after a couple of mins, you should be able to access it from http://www.mesos.notanisp.net
+
+You can get get app / admin interfaces using the following makefile targets:
+
+    make getwww
+    make getmesos
+    make getmarathon
 
 Any additional apps you launch in Marathon with names like /someapp will be automatically bound
 to a vhost on the load balancer.

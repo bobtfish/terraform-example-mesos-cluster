@@ -7,7 +7,3 @@ module "vpc" {
     aws_key_location = "../id_rsa"
 }
 
-output "nat_public_ip" {
-    value = "${module.vpc.nat_public_ip}"
-}
-

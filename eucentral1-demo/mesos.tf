@@ -15,11 +15,3 @@ module "mesos" {
     discovery_instance_profile = "temp-admin"
 }
 
-output "master_public_ips" {
-  value = "${module.mesos.master_public_ips}"
-}
-
-output "marathon_api" {
-  value = "${module.mesos.marathon_api}"
-}
-
