@@ -15,6 +15,10 @@ sshnat:
 deploywww:
 	curl -H "Content-Type: application/json" -X POST -d @marathon_www.json $$(terraform output marathon_api)/v2/apps
 
+deploywordpress:
+	curl -H "Content-Type: application/json" -X POST -d @marathon_wordpress.json $$(terraform output marathon_api)/v2/apps
+
+
 getwww:
 	curl -v http://www.$$(terraform output domain)/
 

@@ -7,7 +7,6 @@ module "mesos" {
     region = "${var.region}"
     admin_iprange = "${var.admin_iprange}"
     admin_key_name = "${aws_key_pair.admin.key_name}"
-    availability_zones = "${module.vpc.primary-az}"
     private_subnet_ids = "${module.vpc.primary-az-ephemeralsubnet}"
     public_subnet_ids = "${module.vpc.primary-az-frontsubnet}"
     domain = "${var.domain}"
