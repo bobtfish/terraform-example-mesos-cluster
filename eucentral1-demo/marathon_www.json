@@ -2,7 +2,7 @@
     "id": "/www",
     "cmd": "./Hello-*/bin/hello -Dhttp.port=$PORT0",
     "cpus": 0.25,
-    "mem": 512.0,
+    "mem": 16.0,
     "deployments": [
         {
             "id": "5cd987cd-85ae-4e70-8df7-f1438367d9cb"
